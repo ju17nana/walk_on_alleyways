@@ -2,8 +2,8 @@
 
 [画面遷移図(Figma)](https://www.figma.com/file/dhCur9Hn4aIpUGk4gqZ5SN/walk_on_alleyways?node-id=9%3A94&t=TLxhdEibM1csEdR8-0)
 
-# ER図
-[draw.io](https://drive.google.com/file/d/1wbtECp5c80CDS-ovowYDOxhSMb64dnA2/view?usp=sharing)
+
+[ER図(draw.io)](https://drive.google.com/file/d/1wbtECp5c80CDS-ovowYDOxhSMb64dnA2/view?usp=sharing)
 
 ---
 
