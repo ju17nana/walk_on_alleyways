@@ -1,6 +1,6 @@
 ---
 name: for Task
-about: タスク整理
+about: タスク整理のためのIssueテンプレート
 title: ''
 labels: ''
 assignees: ju17nana
