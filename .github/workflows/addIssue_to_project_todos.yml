@@ -1,0 +1,651 @@
+name: Add child-issue to project with parent data
+
+on:
+  issues:
+    types: [opened]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.ADD_TO_PROJECT_PAT }}
+
+jobs:
+  get-parent-id:
+    runs-on: ubuntu-latest
+    outputs:
+      parentId: ${{ steps.get-parentissue-id.outputs.parentId }}
+    steps:
+      - name: get-parentissue-id
+        id: get-parentissue-id
+        run: |
+          parentId="$(
+            gh api graphql -f query='
+                                query($issueId: ID!) {
+                                  node(id: $issueId) {
+                                    ... on Issue {
+                                      trackedInIssues(first: 5) {
+                                        nodes {
+                                          id
+                                        }
+                                      }
+                                    }
+                                  }
+                                }' \
+                            -f "issueId=${{ github.event.issue.node_id }}" \
+                            --jq '.data.node.trackedInIssues.nodes[].id'
+          )"
+          echo 'parentId='$parentId >> $GITHUB_OUTPUT
+
+  get-parent-data:
+    runs-on: ubuntu-latest
+    needs: get-parent-id
+    outputs:
+      assigneeIds:      ${{ steps.get-parent-data.outputs.assigneeIds }}
+      labelNames:       ${{ steps.get-parent-data.outputs.labelNames }}
+      statusOptionId:   ${{ steps.get-parent-data.outputs.statusOptionId }}
+      iterationId:      ${{ steps.get-parent-data.outputs.iterationId }}
+      dayOptionId:      ${{ steps.get-parent-data.outputs.dayOptionId }}
+      priorityOptionId: ${{ steps.get-parent-data.outputs.priorityOptionId }}
+    steps:
+      - name: get-parent-data
+        id: get-parent-data
+        run: |
+          if [ -n "${PARENT_ID-}" ]; then
+            #PARENT_IDが空でない場合(親Issueが存在する場合)
+            parentIssueData="$(
+              gh api graphql -f query="$GET_PARENT_ISSUE_DATA_QUERY" \
+                             -f "parentId=$PARENT_ID" \
+                             )"
+  
+            assigneeIds="$(
+              echo "$parentIssueData" | jq -r '.data.node.assignees.nodes[].id')"
+            echo 'assigneeIds='$assigneeIds >> $GITHUB_OUTPUT
+  
+            labelNames="$(
+              echo "$parentIssueData" | jq -r '.data.node.labels.nodes[].name')"
+            echo 'labelNames='$labelNames >> $GITHUB_OUTPUT
+
+            parentItemId="$(
+              gh api graphql -f query='query($parentId: ID!) {
+                                         node(id: $parentId) {
+                                           ... on Issue {
+                                              projectItems(first: 1) {
+                                                nodes {
+                                                  id
+                                                }
+                                              }
+                                            }
+                                         }
+                                        }' \
+                             -f "parentId=$PARENT_ID" \
+                             --jq '.data.node.projectItems.nodes[].id'
+                             )"
+            #echo "parentItemID = $parentItemId"
+
+            parentFieldData="$(
+              gh api graphql -f query='query($itemId: ID!) {
+                                        node(id: $itemId) {
+                                          ... on ProjectV2Item {
+                                            id
+                                            Status: fieldValueByName(name: "Status") {
+                                              ... on ProjectV2ItemFieldSingleSelectValue {
+                                                name
+                                                id
+                                                optionId
+                                              }
+                                            }
+                                            Day: fieldValueByName(name: "Day") {
+                                              ... on ProjectV2ItemFieldSingleSelectValue {
+                                                name
+                                                id
+                                                optionId
+                                              }
+                                            }
+                                            Priority: fieldValueByName(name: "Priority") {
+                                              ... on ProjectV2ItemFieldSingleSelectValue {
+                                                name
+                                                id
+                                                optionId
+                                              }
+                                            }
+                                      			Week: fieldValueByName(name: "Week") {
+                                      				... on ProjectV2ItemFieldIterationValue {
+                                                id
+                                                iterationId
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }' \
+                             -f "itemId=$parentItemId" \
+                             )"
+
+            statusOptionId="$(
+              echo "$parentFieldData" | jq -r '.data.node.Status.optionId')"
+            #echo "statusOptionId = $statusOptionId"
+            if [ "$statusOptionId" != "null" ]; then
+              echo 'statusOptionId='$statusOptionId >> $GITHUB_OUTPUT
+            fi
+  
+            iterationId="$(
+              echo "$parentFieldData" | jq -r '.data.node.Week.iterationId')"
+            #echo "iterationId = $iterationId"
+            if [ "$iterationId" != "null" ]; then
+              echo 'iterationId='$iterationId >> $GITHUB_OUTPUT
+            fi
+  
+            dayOptionId="$(
+              echo "$parentFieldData" | jq -r '.data.node.Day.optionId')"
+            #echo "dayOptionId = $dayOptionId"
+            if [ "$dayOptionId" != "null" ]; then
+              echo 'dayOptionId='$dayOptionId >> $GITHUB_OUTPUT
+            fi
+  
+            priorityOptionId="$(
+              echo "$parentFieldData" | jq -r '.data.node.Priority.optionId')"
+            #echo "priorityOptionId = $priorityOptionId"
+            if [ "$priorityOptionId" != "null" ]; then
+              echo 'priorityOptionId='$priorityOptionId >> $GITHUB_OUTPUT
+            fi
+            
+          else
+            # PARENT_IDが空の場合の処理
+            echo "親Issueが存在しません"
+          fi
+          
+        env:
+          PARENT_ID: ${{ needs.get-parent-id.outputs.parentId }}
+          GET_PARENT_ISSUE_DATA_QUERY: |
+            query($parentId: ID!) {
+              node(id: $parentId) {
+                ... on Issue {
+                  assignees(first: 10) {
+                    nodes {
+                      id
+                    }
+                  }
+                  labels(first: 50) {
+                    nodes {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+
+  set-child-issue-data:
+    runs-on: ubuntu-latest
+    needs: [get-parent-id, get-parent-data]
+    steps:
+      - name: set-child-issue-data
+        id: set-child-issue-data
+        run: |
+          if [ -n "${PARENT_ID-}" ]; then
+            if [ -n "${PARENT_LABELS-}" ]; then
+              labelNames=$(echo "$PARENT_LABELS" | sed 's/ /,/g')
+              gh issue edit ${{ github.event.issue.number }} --add-label "$labelNames"
+            fi
+
+            if [ -n "${PARENT_ASSIGNEES-}" ]; then
+              gh api graphql -f query="$UPDATE_CHILD_ASSIGNEES_MUTATION" \
+                             -f "issueId=${{ github.event.issue.node_id }}" \
+                             -f "assigneeIds=$PARENT_ASSIGNEES"
+            fi
+          else
+            echo "親Issueが存在しません"
+          fi
+
+        env:
+          PARENT_ID:        ${{ needs.get-parent-id.outputs.parentId }}
+          PARENT_ASSIGNEES: ${{ needs.get-parent-data.outputs.assigneeIds }}
+          PARENT_LABELS:    ${{ needs.get-parent-data.outputs.labelNames }}
+          GH_REPO:          ${{ github.repository }}
+          #UPDATE_CHILD_ISSUE_MUTATION: |  AssigneesとLabelsを同時に更新したかったが、引数を用いての配列の渡し方が不明だったため、別々のコマンドで更新することにした
+            #mutation updateIssue(
+              #$issueId: ID!, 
+              #$assigneeIds: [ID!], 
+              #$labelIds: [ID!]
+            #) {
+              #updateIssue(
+                #input: {
+                  #id: $issueId,
+                  #assigneeIds: $assigneeIds,
+                  #labelIds: $labelIds,
+                 #}
+                #) {
+                  #issue {
+                    #id
+                  #}
+                #}
+              #}
+          UPDATE_CHILD_ASSIGNEES_MUTATION: |
+            mutation updateIssue(
+              $issueId: ID!, 
+              $assigneeIds: [ID!], 
+            ) {
+              updateIssue(
+                input: {
+                  id: $issueId,
+                  assigneeIds: $assigneeIds,
+                 }
+                ) {
+                  issue {
+                    id
+                  }
+                }
+              }
+
+  add-issue-to-project:
+    runs-on: ubuntu-latest
+    needs: [get-parent-id, get-parent-data, set-child-issue-data]
+    outputs:
+      itemId: ${{ steps.add.outputs.issueIdInProject }}
+    steps:
+      - run: |
+          item_id="$( 
+            gh api graphql -f query='
+                                mutation($projectId: ID! $issueId: ID!) {
+                                  addProjectV2ItemById(
+                                    input: {
+                                      projectId: $projectId 
+                                      contentId: $issueId
+                                    }
+                                  ) {
+                                    item {
+                                      id
+                                    }
+                                  }
+                                }' \
+                           -f "projectId=$PROJECT_ID" \
+                           -f "issueId=${{ github.event.issue.node_id }}" \
+                           --jq '.data.addProjectV2ItemById.item.id'
+          )"
+          echo 'issueIdInProject='$item_id >> $GITHUB_OUTPUT
+        id: add
+        env:
+          PROJECT_ID: PVT_kwHOBgFT1c4AP7tG
+
+  set-child-project-data:
+    runs-on: ubuntu-latest
+    needs: [get-parent-id, get-parent-data, set-child-issue-data, add-issue-to-project]
+    steps:
+      - name: set-child-project-data
+        id: set-child-project-data
+        run: |
+          if [ -n "${PARENT_ID-}" ]; then
+            #親Issueが存在する場合
+            if [ -n "${PARENT_STATUS}" ]; then
+              if [ -n "${PARENT_ITERATION}" ]; then
+                if [ -n "${PARENT_DAY}" ]; then
+                  if [ -n "${PARENT_PRIORITY}" ]; then
+                    #全てのFieldがNullでない場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $statusId: ID! 
+                            $statusValue: String!
+                            $weekId: ID! 
+                            $weekValue: String!
+                            $dayId: ID! 
+                            $dayValue: String!
+                            $priorityId: ID! 
+                            $priorityValue: String!
+                          ) {
+                            '"$UPDATE_STATUS"'
+                            '"$UPDATE_WEEK"'
+                            '"$UPDATE_DAY"'
+                            '"$UPDATE_PRIORITY"'
+                            }'
+                  else
+                    #PriorityのみNullの場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $statusId: ID! 
+                            $statusValue: String!
+                            $weekId: ID! 
+                            $weekValue: String!
+                            $dayId: ID! 
+                            $dayValue: String!
+                          ) {
+                            '"$UPDATE_STATUS"'
+                            '"$UPDATE_WEEK"'
+                            '"$UPDATE_DAY"'
+                            }'
+                  fi
+                else
+                  if [ -n "${PARENT_PRIORITY}" ]; then
+                    #DayのみがNullの場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $statusId: ID! 
+                            $statusValue: String!
+                            $weekId: ID! 
+                            $weekValue: String!
+                            $priorityId: ID! 
+                            $priorityValue: String!
+                          ) {
+                            '"$UPDATE_STATUS"'
+                            '"$UPDATE_WEEK"'
+                            '"$UPDATE_PRIORITY"'
+                            }'
+                  else
+                    #Day, PriorityがNullの場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $statusId: ID! 
+                            $statusValue: String!
+                            $weekId: ID! 
+                            $weekValue: String!
+                          ) {
+                            '"$UPDATE_STATUS"'
+                            '"$UPDATE_WEEK"'
+                            }'
+                  fi
+                fi
+              else
+                if [ -n "${PARENT_DAY}" ]; then
+                  if [ -n "${PARENT_PRIORITY}" ]; then
+                    #WeekのみNullの場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $statusId: ID! 
+                            $statusValue: String!
+                            $dayId: ID! 
+                            $dayValue: String!
+                            $priorityId: ID! 
+                            $priorityValue: String!
+                          ) {
+                            '"$UPDATE_STATUS"'
+                            '"$UPDATE_DAY"'
+                            '"$UPDATE_PRIORITY"'
+                            }'
+                  else
+                    #Week, PriorityがNullの場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $statusId: ID! 
+                            $statusValue: String!
+                            $dayId: ID! 
+                            $dayValue: String!
+                          ) {
+                            '"$UPDATE_STATUS"'
+                            '"$UPDATE_DAY"'
+                            }'
+                  fi
+                else
+                  if [ -n "${PARENT_PRIORITY}" ]; then
+                    #Week, DayがNullの場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $statusId: ID! 
+                            $statusValue: String!
+                            $priorityId: ID! 
+                            $priorityValue: String!
+                          ) {
+                            '"$UPDATE_STATUS"'
+                            '"$UPDATE_PRIORITY"'
+                            }'
+                  else
+                    #Week, Day, PriorityがNullの場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $statusId: ID! 
+                            $statusValue: String!
+                          ) {
+                            '"$UPDATE_STATUS"'
+                            }'
+                  fi
+                fi
+              fi
+    
+              gh api graphql -f query="$query" \
+                             -f "projectId=$PROJECT_ID" \
+                             -f "itemId=$ITEM_ID" \
+                             -f "statusId=$STATUS_ID" \
+                             -f "statusValue=$PARENT_STATUS" \
+                             -f "weekId=$WEEK_ID" \
+                             -f "weekValue=$PARENT_ITERATION" \
+                             -f "dayId=$DAY_ID" \
+                             -f "dayValue=$PARENT_DAY" \
+                             -f "priorityId=$PRIORITY_ID" \
+                             -f "priorityValue=$PARENT_PRIORITY"
+
+            else
+              if [ -n "${PARENT_ITERATION}" ]; then
+                if [ -n "${PARENT_DAY}" ]; then
+                  if [ -n "${PARENT_PRIORITY}" ]; then
+                    #StatusのみNullの場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $weekId: ID! 
+                            $weekValue: String!
+                            $dayId: ID! 
+                            $dayValue: String!
+                            $priorityId: ID! 
+                            $priorityValue: String!
+                          ) {
+                            '"$UPDATE_WEEK"'
+                            '"$UPDATE_DAY"'
+                            '"$UPDATE_PRIORITY"'
+                            }'
+                  else
+                    #Status, PriorityがNullの場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $weekId: ID! 
+                            $weekValue: String!
+                            $dayId: ID! 
+                            $dayValue: String!
+                          ) {
+                            '"$UPDATE_WEEK"'
+                            '"$UPDATE_DAY"'
+                            }'
+                  fi
+                else
+                  if [ -n "${PARENT_PRIORITY}" ]; then
+                    #Status, DayがNullの場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $weekId: ID! 
+                            $weekValue: String!
+                            $priorityId: ID! 
+                            $priorityValue: String!
+                          ) {
+                            '"$UPDATE_WEEK"'
+                            '"$UPDATE_PRIORITY"'
+                            }'
+                  else
+                    #Status, Day, PriorityがNullの場合
+                    query='mutation(
+                          $projectId: ID! 
+                          $itemId: ID! 
+                          $weekId: ID! 
+                          $weekValue: String!
+                        ) {
+                          '"$UPDATE_WEEK"'
+                          }'
+                  fi
+                fi
+      
+                gh api graphql -f query="$query" \
+                               -f "projectId=$PROJECT_ID" \
+                               -f "itemId=$ITEM_ID" \
+                               -f "weekId=$WEEK_ID" \
+                               -f "weekValue=$PARENT_ITERATION" \
+                               -f "dayId=$DAY_ID" \
+                               -f "dayValue=$PARENT_DAY" \
+                               -f "priorityId=$PRIORITY_ID" \
+                               -f "priorityValue=$PARENT_PRIORITY"
+              
+              else
+                if [ -n "${PARENT_DAY}" ]; then
+                  if [ -n "${PARENT_PRIORITY}" ]; then
+                    #Status, WeekがNullの場合
+                    query='mutation(
+                            $projectId: ID! 
+                            $itemId: ID! 
+                            $dayId: ID! 
+                            $dayValue: String!
+                            $priorityId: ID! 
+                            $priorityValue: String!
+                          ) {
+                            '"$UPDATE_DAY"'
+                            '"$UPDATE_PRIORITY"'
+                            }'
+                  else
+                    #Status, Week, PriorityがNullの場合
+                    query='mutation(
+                          $projectId: ID! 
+                          $itemId: ID! 
+                          $dayId: ID! 
+                          $dayValue: String!
+                        ) {
+                          '"$UPDATE_DAY"'
+                          }'
+                  fi
+        
+                  gh api graphql -f query="$query" \
+                                 -f "projectId=$PROJECT_ID" \
+                                 -f "itemId=$ITEM_ID" \
+                                 -f "dayId=$DAY_ID" \
+                                 -f "dayValue=$PARENT_DAY" \
+                                 -f "priorityId=$PRIORITY_ID" \
+                                 -f "priorityValue=$PARENT_PRIORITY"
+
+                else
+                  if [ -n "${PARENT_PRIORITY}" ]; then
+                    #Status, Week, DayがNullの場合
+                    query='mutation(
+                          $projectId: ID! 
+                          $itemId: ID! 
+                          $priorityId: ID! 
+                          $priorityValue: String!
+                        ) {
+                          '"$UPDATE_PRIORITY"'
+                          }'
+          
+                    gh api graphql -f query="$query" \
+                                   -f "projectId=$PROJECT_ID" \
+                                   -f "itemId=$ITEM_ID" \
+                                   -f "priorityId=$PRIORITY_ID" \
+                                   -f "priorityValue=$PARENT_PRIORITY"
+                                   
+                  else
+                    #全てがNullの場合
+                    echo "親Issueのカスタムフィールドは全てNullです"
+                  fi
+                fi
+              fi
+            fi
+          else
+            #親Issueが存在しない場合、StatusをBacklogにして終了
+            gh api graphql -f query='
+                                mutation(
+                                  $projectId: ID! 
+                                  $itemId: ID! 
+                                  $statusId: ID! 
+                                  $statusValue: String!
+                                ) {
+                                  updateProjectV2ItemFieldValue(
+                                    input: {
+                                      projectId: $projectId
+                                      itemId: $itemId
+                                      fieldId: $statusId
+                                      value: {
+                                        singleSelectOptionId: $statusValue
+                                      }
+                                    }
+                                  ) {
+                                    projectV2Item {
+                                      id
+                                    }
+                                  }
+                                }' \
+                           -f "projectId=$PROJECT_ID" \
+                           -f "itemId=$ITEM_ID" \
+                           -f "statusId=$STATUS_ID" \
+                           -f "statusValue=$BACKLOG_ID" 
+          fi
+   
+        env:
+          PARENT_ID:        ${{ needs.get-parent-id.outputs.parentId }}
+          PROJECT_ID:       PVT_kwHOBgFT1c4AP7tG
+          ITEM_ID:          ${{ needs.add-issue-to-project.outputs.itemId }}
+          STATUS_ID:        PVTSSF_lAHOBgFT1c4AP7tGzgKK_zo
+          PARENT_STATUS:    ${{ needs.get-parent-data.outputs.statusOptionId }}
+          WEEK_ID:          PVTIF_lAHOBgFT1c4AP7tGzgKOQJE
+          PARENT_ITERATION: ${{ needs.get-parent-data.outputs.iterationId }}
+          DAY_ID:           PVTSSF_lAHOBgFT1c4AP7tGzgKXvaU
+          PARENT_DAY:       ${{ needs.get-parent-data.outputs.dayOptionId }}
+          PRIORITY_ID:      PVTSSF_lAHOBgFT1c4AP7tGzgKXvsg
+          PARENT_PRIORITY:  ${{ needs.get-parent-data.outputs.priorityOptionId }}
+          BACKLOG_ID:       8524c471
+          UPDATE_STATUS: |
+            updateStatus: updateProjectV2ItemFieldValue(
+              input: {
+                projectId: $projectId
+                itemId: $itemId
+                fieldId: $statusId
+                value: {
+                  singleSelectOptionId: $statusValue
+                }
+              }
+            ) {
+              projectV2Item {
+                id
+              }
+            }
+          UPDATE_WEEK: |
+            updateWeek: updateProjectV2ItemFieldValue(
+              input: {
+                projectId: $projectId
+                itemId: $itemId
+                fieldId: $weekId
+                value: {
+                  iterationId: $weekValue
+                }
+              }
+            ) {
+              projectV2Item {
+                id
+              }
+            }
+          UPDATE_DAY: |
+            updateDay: updateProjectV2ItemFieldValue(
+              input: {
+                projectId: $projectId
+                itemId: $itemId
+                fieldId: $dayId
+                value: {
+                  singleSelectOptionId: $dayValue
+                }
+              }
+            ) {
+              projectV2Item {
+                id
+              }
+            }
+          UPDATE_PRIORITY: |
+            updatePriority: updateProjectV2ItemFieldValue(
+              input: {
+                projectId: $projectId
+                itemId: $itemId
+                fieldId: $priorityId
+                value: {
+                  singleSelectOptionId: $priorityValue
+                }
+              }
+            ) {
+              projectV2Item {
+                id
+              }
+            }
