@@ -9,20 +9,12 @@ assignees: ju17nana
 
 ## 概要
 <!-- 1つのissueにつき機能は1つ -->
-- 
+
 
 ## Task List
 - [ ]  
 - [ ]  
 - [ ]  
-
-
-
-## Check List
-- [ ]  
-- [ ]  
-- [ ]  
-
 
 ## 参考
 - []()
