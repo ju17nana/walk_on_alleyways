@@ -40,7 +40,7 @@ gem "bootsnap", require: false
 gem 'rails-i18n', '~> 7.0', '>= 7.0.8'
 gem 'enum_help'
 gem 'slim-rails'
-gem 'erb2slim'
+gem 'html2slim'
 
 
 
