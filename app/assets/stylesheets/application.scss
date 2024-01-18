@@ -1,5 +1,102 @@
+/*==========================================
+              カラーの変数定義 
+==========================================*/
+$background-color: #fffdf8;
+$navbar-color: #fff7e7;
+$dark-font-color: #4e3300;
+$light-font-color: #c2b9a8;
+$white-font-color: #fdfdfd;
 
-nav {
-  /*background-color: #888;*/
+
+/*------------------------------------------*/
+body {
+  background-color: $background-color;
+  color: $dark-font-color;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
 }
 
+/*------------------------------------------*/
+
+/*==========================================
+                   header 
+==========================================*/
+
+.navbar {
+  background-color: $navbar-color;
+}
+
+.container-fluid {
+  height: 52px;
+}
+
+.navbar-brand {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: $dark-font-color;
+}
+
+/*リンクのクリック可能範囲を広げる*/
+nav.navbar .container-fluid ul.navbar-nav {
+  height: 100%;
+}
+nav.navbar .container-fluid ul.navbar-nav li {
+  height: 100%;
+}
+nav.navbar .container-fluid ul.navbar-nav li a {
+  height: 100%;
+  font-size: 1.0rem;
+  color: $dark-font-color;
+}
+
+nav button.btn.dropdown-toggle {
+  height: 100%;
+  font-size: 1.3rem;
+  color: $dark-font-color;
+}
+
+/*Infoリスト展開時の色*/
+nav.navbar .container-fluid ul.dropdown-menu {
+  background-color: $background-color;
+  border: 0.5px solid $light-font-color;
+}
+
+/*------------------------------------------*/
+
+/*#dropdown-toggle-without-arrowの枠を非表示にする*/
+#dropdown-toggle-without-arrow {
+  border: none;
+}
+
+/*#dropdown-toggle-without-arrowの矢印を非表示にする*/
+#dropdown-toggle-without-arrow::after {
+  display: none;
+}
+
+/*------------------------------------------*/
+
+/*nabvarのリンクがホバー・フォーカスなどの状態の時の色を変更*/
+.navbar a:hover,
+.navbar a:active,
+.navbar a:focus {
+  background-color: transparent;
+  color: $light-font-color;
+}
+
+/*新規登録・ログインのリンクがホバー・フォーカスなどの状態の時の色を変更*/
+nav.navbar .container-fluid ul.navbar-nav li a:hover,
+nav.navbar .container-fluid ul.navbar-nav li a:active,
+nav.navbar .container-fluid ul.navbar-nav li a:focus {
+  background-color: transparent;
+  color: $light-font-color;
+}
+
+/*Informationアイコンがホバー・フォーカスなどの状態の時の色を変更*/
+nav button.btn.dropdown-toggle:hover,
+nav button.btn.dropdown-toggle:active,
+nav button.btn.dropdown-toggle:focus {
+  background-color: transparent;
+  color: $light-font-color;
+}
+
+/*------------------------------------------*/
