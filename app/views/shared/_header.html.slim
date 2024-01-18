@@ -1,0 +1,22 @@
+header
+  nav.navbar
+    .container-fluid
+      = link_to "pathfinder", root_path, class: "navbar-brand"
+
+      ul.navbar-nav.ms-auto.d-flex.flex-row.align-items-center
+        li.nav-item
+          = link_to "新規登録", "#", class: "nav-link d-flex align-items-center p-2 me-2"
+        li.nav-item
+          = link_to "ログイン", "#", class: "nav-link d-flex align-items-center p-2 me-1"
+      button.btn.dropdown-toggle.ps-2.pe-2.me-1#dropdown-toggle-without-arrow type="button" data-bs-toggle="dropdown" aria-expanded="false"
+        i.ph.ph-info
+
+      ul.dropdown-menu.dropdown-menu-end.me-2
+        li
+          = link_to "pathfinderについて", "#", class: "dropdown-item"
+        li
+          = link_to "利用規約", "#", class: "dropdown-item"
+        li
+          = link_to "プライバシーポリシー", "#", class: "dropdown-item"
+        li
+          = link_to "お問い合わせ", "#", class: "dropdown-item"
