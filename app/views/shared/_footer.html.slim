@@ -1,5 +1,14 @@
-h3 testtesttest
-p 
-  |
-    testですよコレはテスト <br>
-    testですよコレはテスト 
+nav#bottom-navbar.fixed-bottom.my-0.py-2.bg-white
+  ul.nav.justify-content-center
+    li.nav-item
+      = link_to "#", class: "nav-link d-flex flex-column align-items-center px-4" do
+        i.ph-duotone.ph-footprints
+        span.small ルート検索
+    li.nav-item
+      = link_to "#", class: "nav-link d-flex flex-column align-items-center px-4" do
+        i.ph-duotone.ph-images-square
+        span.small 写真一覧
+    li.nav-item
+      = link_to "#", class: "nav-link d-flex flex-column align-items-center px-4" do
+        i.ph-duotone.ph-flag-pennant
+        span.small ミッション
