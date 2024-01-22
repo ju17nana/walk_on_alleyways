@@ -1,0 +1,14 @@
+$custom-colors: (
+  "custom-green": #7eae34,
+  "custom-yellow": #ffb11b,
+  "custom-pink": #cfaac9,
+  "custom-body-bg": #fffdf8,
+  "custom-nav-bg": #fff7e7
+);
+
+// 上で定義した$custom-colors を $theme-colors にマージする
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+// bodyの背景色に定義したcustom-body-bdを適用する
+$body-bg: map-get($theme-colors, "custom-body-bg");
+

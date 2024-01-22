@@ -2,14 +2,15 @@
 @import "../node_modules/bootstrap/scss/functions";
 
 // 2. ここにデフォルトの変数の再定義の設定を組み込む
-$body-bg: #fffdf8;
-$body-color: #4e3300;
+// 変数の再定義をしたファイルを読み込む
+@import "_partials/variables";
 
 // 3. 必須のBootstrapスタイルシートを組み込む（個別のカラーモードスタイルシートを含む）
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/variables-dark";
 
 // 4. ここにデフォルトのマップの再定義の設定を組み込む
+@import "_partials/maps";
 
 // 5. 残りの必須のBootstrapスタイルシートを組み込む
 @import "../node_modules/bootstrap/scss/maps";
@@ -56,3 +57,4 @@ $body-color: #4e3300;
 @import "../node_modules/bootstrap/scss/utilities/api";
 
 
+// 8. ここにカスタムのスタイルを追加する
