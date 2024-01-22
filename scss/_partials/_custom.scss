@@ -1,0 +1,21 @@
+
+
+
+/*------------------------------------------*/
+
+/*==========================================
+                   footer
+==========================================*/
+
+.bottom-nav-icon {
+  font-size: 30px; // お好みのサイズに調整
+}
+
+#bottom-nav ul li a {
+  color: $gray-600;
+}
+
+#bottom-nav ul li a:hover {
+  color: map-get($theme-colors, "custom-yellow");
+}
+
