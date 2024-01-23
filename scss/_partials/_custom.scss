@@ -6,9 +6,20 @@
 /*==========================================
                    footer
 ==========================================*/
+#bottom-nav {
+  height: 58px;
+}
+
+#bottom-nav ul {
+  height: 100%;
+}
+
+#bottom-nav ul li {
+  height: 100%;
+}
 
 .bottom-nav-icon {
-  font-size: 30px; // お好みのサイズに調整
+  font-size: 26px;
 }
 
 #bottom-nav ul li a {
