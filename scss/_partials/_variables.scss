@@ -31,6 +31,7 @@ $danger:        #f44336;
 // --------------------------------------------------
 // body
 $body-color: $gray-900;
+//$body-bg:    #fffdf8;
 
 // Style anchor elements.
 $link-color:                              $gray-900;
@@ -58,9 +59,11 @@ $border-radius:               .65rem;
 
 // focus-ring-variables
 // フォーカス状態の時はリングではなく背景色をつける予定なので、太さを0にする
-$focus-ring-width:      .0rem;
-$focus-ring-opacity:    .25;
+$focus-ring-width:      2px;
+$focus-ring-opacity:    .5;
 $focus-ring-color:      rgba($gray-500, $focus-ring-opacity);
+$focus-ring-blur:       0;
+$focus-ring-box-shadow: 0 0 $focus-ring-blur $focus-ring-width $focus-ring-color;
 
 
 //-----------------------------------------------
@@ -101,8 +104,12 @@ $small-font-size:             .8em;
 // 1158行目から nav-variables
 
 // 1237行目から dropdown-variables
-//$dropdown-link-active-color:        $component-active-color;
-//$dropdown-link-active-bg:           $component-active-bg;
+$dropdown-link-color:               $body-color;
+$dropdown-link-hover-color:         $link-hover-color;
+$dropdown-link-hover-bg:            transparent;
+
+$dropdown-link-active-color:        $link-hover-color;  //$component-active-color から変更
+$dropdown-link-active-bg:           transparent;        //$component-active-bg から変更
 
 // 1291行目から pagenation-variables
 

@@ -12,7 +12,26 @@ header .container-fluid {
   height: 58px;
 }
 
+#app-logo {
+  font-size: 26px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+}
 
+//何故かnav-linkの状態ごとのカラー設定が反映されないのでここで上書き
+#app-logo:hover,
+#app-logo:focus,
+#app-logo:active {
+  color: $gray-600;
+}
+
+#infoButton::after {
+  display: none;
+}
+
+#infoButton i {
+  font-size: 1.2rem;
+}
 
 
 /*------------------------------------------*/
