@@ -1,0 +1,141 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+            
+AllCops: 
+  # Ruby・Railsバージョン指定
+  TargetRubyVersion: 3.2.2
+  TargetRailsVersion: 7.1.2
+  # チェック対象外にしたいファイルを Exclude に設定
+  Exclude:
+    - 'vendor/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'node_modules/**/*'
+    - 'config/**/*'
+    - 'config.ru'
+  # バージョンが上がった際に追加されたCopを有効にする
+  NewCops: enable
+
+# Rubocop の Rails拡張を有効にする
+Rails:
+  Enabled: true
+
+# Railsのファイルパスの規約に従わない場合の警告を無効にする
+Rails/FilePath:
+  Exclude:
+    - 'lib/tasks/dev.rake'
+    - 'spec/rails_helper.rb'
+
+## `and return` の形式を利用できるよう設定。基本的には、&& と || を使用
+Style/AndOr:
+  Enabled: false
+
+## 日本語コメントを許可
+Style/AsciiComments:
+  Enabled: false
+
+# コメントのインデントに関しては警告しない
+Layout/CommentIndentation:
+  Enabled: false
+
+# メソッドの呼び出し演算子（.や::）の周りのスペースに関するCopを有効にする
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+# パーセントリテラル(%i[]) 内のデリミター（[]）の中にスペースがあることをGemfileでは許可する
+Layout/SpaceInsidePercentLiteralDelimiters:
+  Exclude:
+    - 'Gemfile'
+
+# ブロックの長さ計測にコメントを含めない
+Metrics/BlockLength:
+  CountComments: false
+
+# クラスの長さ計測にコメントを含めない
+Metrics/ClassLength:
+  CountComments: false
+
+# メソッドの長さ計測にコメントを含めない
+Metrics/MethodLength:
+  CountComments: false
+  Max: 20
+  Exclude:
+    - 'lib/tasks/dev.rake'
+
+# モジュールの長さ計測にコメントを含めない
+Metrics/ModuleLength:
+  CountComments: false
+
+# Gemfileをファイル名の規約の対象から除外する
+Naming/FileName:
+  Exclude:
+    - 'Gemfile'
+
+# RSpecコンテキストの命名に関するCopを無効
+RSpec/ContextWording:
+  Enabled: false
+
+# described_classメソッドの使用に関するCopを無効
+RSpec/DescribedClass:
+  Enabled: false
+
+# RSpecのexample（テストケース）の長さに関するCopを無効
+RSpec/ExampleLength:
+  Enabled: false
+
+# hookブロック(before, afterなど)内でのexpectの使用に関する警告を表示しない
+RSpec/ExpectInHook:
+    Enabled: false
+
+# RSpecのexampleでのインスタンス変数の使用に関する警告を表示しない
+RSpec/InstanceVariable:
+    Enabled: false
+
+# RSpecでの複数のexpectの使用に関する警告を表示しない
+RSpec/MultipleExpectations:
+    Enabled: false
+
+# RSpecのネストされたグループ（describeやcontext）の最大数
+RSpec/NestedGroups:
+    Max: 5
+
+# クラスやモジュール内でのClass.newやModule.newの使用に関するCopを無効
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# ドキュメンテーションコメントに関するCopを無効
+Style/Documentation:
+  Enabled: false
+
+# フローズン文字列リテラルを無効
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# HashSyntaxをGemfileでは無効にする
+Style/HashSyntax:
+  Exclude:
+    - 'Gemfile'
+
+# ifおよびunlessの修飾子形式に関するCopを無効
+Style/IfUnlessModifier:
+  Enabled: false
+
+# 正規表現リテラルの使用に関するCopを無効
+Style/RegexpLiteral:
+  Enabled: false
+    
+# 引数リストの末尾のカンマをチェックする。最後の引数の後にコンマを必要とする
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
