@@ -52,6 +52,10 @@ group :development, :test do
   gem 'irb'
   # n+1問題を検出する
   gem 'bullet'
+  # RSpecを使う
+  gem 'rspec-rails'
+  # テストデータを簡単に作成する
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -72,6 +76,12 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+end
+
+group :test do
+  # # システムスペックを使う
+  # gem 'capybara'
+  # gem 'webdriver'
 end
 
 gem 'dockerfile-rails', '>= 1.6', :group => :development
