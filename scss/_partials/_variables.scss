@@ -1,0 +1,124 @@
+// colors
+// gray-color-variables
+$white:    #fdfdfd;
+$gray-100: #f6f5f4;
+$gray-200: #efeeeb;
+$gray-300: #e4e2dd;
+$gray-400: #d9d5ce;
+$gray-500: #d3ccbf;
+$gray-600: #a79980;
+$gray-700: #7a6640;
+$gray-800: #4e3300;
+$gray-900: #3d2600;
+$black:    #271a00;
+
+// theme-color-variables
+$primary:       #85b238;
+//$secondary:     $gray-600;
+$success:       #5db049;
+$info:          #4b2b17;
+$warning:       #daa011;
+$danger:        #f44336;
+//$light:         $gray-100;
+//$dark:          $gray-900;
+
+// gradient-variables
+//$enable-gradients:            false !default;
+//$gradient: linear-gradient(180deg, rgba($white, .15), rgba($white, 0)) !default;
+
+
+
+// --------------------------------------------------
+// body
+$body-color: $gray-900;
+//$body-bg:    #fffdf8;
+
+// Style anchor elements.
+$link-color:                              $gray-900;
+$link-decoration:                         null;
+$link-hover-color:                        $gray-600;
+$link-hover-decoration:                   null;
+
+// 463行目から icon-link-variables
+
+$border-color:                $gray-500;
+
+// border-radius-variables
+$border-radius:               .65rem;
+//$border-radius-sm:            .25rem;
+//$border-radius-lg:            .5rem;
+//$border-radius-xl:            1rem;
+//$border-radius-xxl:           2rem;
+//$border-radius-pill:          50rem;
+
+// 558行目から box-shadow-variables
+
+// よく他の変数に代入されて使われてる変数。active状態の文字色と背景色
+//$component-active-color:      $white;
+//$component-active-bg:         $primary;
+
+// focus-ring-variables
+// フォーカス状態の時はリングではなく背景色をつける予定なので、太さを0にする
+$focus-ring-width:      2px;
+$focus-ring-opacity:    .5;
+$focus-ring-color:      rgba($gray-500, $focus-ring-opacity);
+$focus-ring-blur:       0;
+$focus-ring-box-shadow: 0 0 $focus-ring-blur $focus-ring-width $focus-ring-color;
+
+
+//-----------------------------------------------
+//Typography
+$font-family-sans-serif:      'Zen Kaku Gothic New', sans-serif;
+
+// $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
+// $font-size-base affects the font size of the body text
+$font-size-base:              1rem; // Assumes the browser default, typically `16px`
+//$font-size-sm:                $font-size-base * .75;
+//$font-size-lg:                $font-size-base * 1.25;
+
+$line-height-base:            1.5;
+//$line-height-sm:              1.25;
+//$line-height-lg:              2;
+
+//// headings-variables
+//$headings-margin-bottom:      $spacer * .5;
+//$headings-font-family:        null;
+//$headings-font-style:         null;
+//$headings-font-weight:        500;
+//$headings-line-height:        1.2;
+//$headings-color:              inherit;
+
+$small-font-size:             .8em;
+
+//-----------------------------------------------
+//Button and Forms
+
+// 813行目から Button Variables
+
+// 866行目から Forms Variables
+
+// 884行目から input Variables
+
+// 1099行目から form-validation-colors
+
+// 1158行目から nav-variables
+
+// 1237行目から dropdown-variables
+$dropdown-link-color:               $body-color;
+$dropdown-link-hover-color:         $link-hover-color;
+$dropdown-link-hover-bg:            transparent;
+
+$dropdown-link-active-color:        $link-hover-color;  //$component-active-color から変更
+$dropdown-link-active-bg:           transparent;        //$component-active-bg から変更
+
+// 1291行目から pagenation-variables
+
+// 1334行目から placeholder-variables
+// 1341行目から card-variables
+// 1498行目から modal-variables
+// 1546行目から alert-variables
+// 1579行目から list-group-variables
+// 1611行目から thumbnail-variables
+// 1701行目から close-variables
+// 1498行目から modal-variables
+

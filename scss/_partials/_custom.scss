@@ -1,0 +1,57 @@
+
+.full-height {
+  height: 100%;
+}
+
+
+/*------------------------------------------*/
+/*==========================================
+                   header
+==========================================*/
+header .container-fluid {
+  height: 58px;
+}
+
+#app-logo {
+  font-size: 26px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+}
+
+//何故かnav-linkの状態ごとのカラー設定が反映されないのでここで上書き
+#app-logo:hover,
+#app-logo:focus,
+#app-logo:active {
+  color: $gray-600;
+}
+
+#infoButton::after {
+  display: none;
+}
+
+#infoButton i {
+  font-size: 1.2rem;
+}
+
+
+/*------------------------------------------*/
+
+/*==========================================
+                   footer
+==========================================*/
+#bottom-nav {
+  height: 58px;
+}
+
+.bottom-nav-icon {
+  font-size: 26px;
+}
+
+#bottom-nav ul li a {
+  color: $gray-600;
+}
+
+#bottom-nav ul li a:hover {
+  color: map-get($theme-colors, "custom-yellow");
+}
+
