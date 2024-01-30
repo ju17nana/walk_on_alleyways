@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'passwordが32文字であれば有効な状態であること' do
-    user = FactoryBot.build(:user, :long_password)
+    user = FactoryBot.build(:user, password: ('a' * 32), password_confirmation: ('a' * 32))
     expect(user).to be_valid
   end
 
@@ -25,17 +25,24 @@ RSpec.describe User, type: :model do
     expect(user).to_not be_valid
   end
 
-  it 'passwordが8文字未満であれば無効な状態であること' do
-    user = FactoryBot.build(:user, :too_short_password)
+  it 'passwordとpassword(確認)が一致しなければ無効な状態であること' do
+    user = FactoryBot.build(:user, password_confirmation: nil)
 #    user.valid?
-#    expect(user.errors[:password]).to include('パスワードは8文字以上で入力してください')
+#    expect(user.errors[:password]).to include('パスワードとパスワード(確認)が一致しません。もう一度入力してください')
+    expect(user).to_not be_valid
+  end
+
+  it 'passwordが8文字未満であれば無効な状態であること' do
+    user = FactoryBot.build(:user, password: ('a' * 7), password_confirmation: ('a' * 7))
+#    user.valid?
+#    expect(user.errors[:password]).to include('パスワードは8〜32文字で入力してください')
     expect(user).to_not be_valid
   end
 
   it 'passwordが33文字以上であれば無効な状態であること' do
-    user = FactoryBot.build(:user, :too_long_password)
+    user = FactoryBot.build(:user, password: ('a' * 33), password_confirmation: ('a' * 33))
 #    user.valid?
-#    expect(user.errors[:password]).to include('パスワードは32文字以内で入力してください')
+#    expect(user.errors[:password]).to include('パスワードは8〜32文字以内で入力してください')
     expect(user).to_not be_valid
   end
 
