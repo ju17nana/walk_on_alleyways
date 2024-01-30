@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "Users", type: :system do
   # FactoryBotのテストデータを利用
   let(:user) { attributes_for(:user) }
-  let(:user) { attributes_for(:user) }
 
   describe 'ログイン前' do
     context 'フォームの入力値が正常' do
@@ -85,9 +84,9 @@ RSpec.describe "Users", type: :system do
 
     context 'メールアドレスが既に登録されている' do
       scenario 'ユーザーが新規登録に失敗する' do
-        FactoryBot.create(:user)
+        FactoryBot.create(:user, email: 'test@example.com')
         visit new_user_path
-        fill_in 'メールアドレス', with: user[:email]
+        fill_in 'メールアドレス', with: 'test@example.com'
         fill_in 'パスワード', with: user[:password]
         fill_in 'パスワード(確認)', with: user[:password]
         click_button 'アカウントを作成'
