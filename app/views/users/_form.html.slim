@@ -1,22 +1,16 @@
-= form_with(model: user) do |form|
-  - if user.errors.any?
-    div style="color: red"
-      h2 = "#{pluralize(user.errors.count, "error")} prohibited this user from being saved:"
-      ul
-        - user.errors.each do |error|
-          li = error.full_message
+= form_with(model: user) do |f|
+  = render 'shared/error_messages', object: f.object
+  div
+    = f.label :email, style: "display: block"
+    = f.email_field :email,  placeholder: 'メールアドレスを入力'
 
   div
-    = form.label :email, style: "display: block"
-    = form.email_field :email,  placeholder: 'メールアドレスを入力'
+    = f.label :password, style: "display: block"
+    = f.password_field :password, placeholder: 'パスワードを入力 (8〜32文字)'
 
   div
-    = form.label :password, style: "display: block"
-    = form.password_field :password, placeholder: 'パスワードを入力 (8〜32文字)'
-
-  div
-    = form.label :password_confirmation, style: "display: block"
-    = form.text_field :password_confirmation, placeholder: 'パスワードをもう一度入力'
+    = f.label :password_confirmation, style: "display: block"
+    = f.text_field :password_confirmation, placeholder: 'パスワードをもう一度入力'
 
   div
     | アカウントを作成することにより利用規約および
@@ -24,4 +18,4 @@
     | プライバシーポリシーに同意したものとみなします
 
   div
-    = form.submit (t '.submit')
+    = f.submit (t '.submit')
