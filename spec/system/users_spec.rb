@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
   # FactoryBotのテストデータを利用
-  let(:user) { attributes_for(:user) }
+  let(:user) { FactoryBot.attributes_for(:user) }
 
   describe 'ログイン前' do
     context 'フォームの入力値が正常' do
@@ -37,7 +37,7 @@ RSpec.describe "Users", type: :system do
         fill_in 'パスワード', with: ''
         fill_in 'パスワード(確認)', with: ''
         click_button 'アカウントを作成'
-        expect(page).to have_content 'パスワードを入力してください'
+        expect(page).to have_content 'パスワードは8文字以上で入力してください'
         expect(page).to have_content 'アカウントを作成できませんでした'
         expect(current_path).to eq new_user_path
       end
@@ -50,7 +50,7 @@ RSpec.describe "Users", type: :system do
         fill_in 'パスワード', with: 'password'
         fill_in 'パスワード(確認)', with: '12345678'
         click_button 'アカウントを作成'
-        expect(page).to have_content 'パスワードとパスワード(確認)が一致しません。もう一度入力してください'
+        expect(page).to have_content 'パスワード(確認)とパスワードの入力が一致しません'
         expect(page).to have_content 'アカウントを作成できませんでした'
         expect(current_path).to eq new_user_path
       end
@@ -63,7 +63,7 @@ RSpec.describe "Users", type: :system do
         fill_in 'パスワード', with: '1234567'
         fill_in 'パスワード(確認)', with: '1234567'
         click_button 'アカウントを作成'
-        expect(page).to have_content 'パスワードは8〜32文字で入力してください'
+        expect(page).to have_content 'パスワードは8文字以上で入力してください'
         expect(page).to have_content 'アカウントを作成できませんでした'
         expect(current_path).to eq new_user_path
       end
@@ -76,7 +76,7 @@ RSpec.describe "Users", type: :system do
         fill_in 'パスワード', with: '123456789012345678901234567890123'
         fill_in 'パスワード(確認)', with: '123456789012345678901234567890123'
         click_button 'アカウントを作成'
-        expect(page).to have_content 'パスワードは8〜32文字で入力してください'
+        expect(page).to have_content 'パスワードは32文字以内で入力してください'
         expect(page).to have_content 'アカウントを作成できませんでした'
         expect(current_path).to eq new_user_path
       end
@@ -90,7 +90,7 @@ RSpec.describe "Users", type: :system do
         fill_in 'パスワード', with: user[:password]
         fill_in 'パスワード(確認)', with: user[:password]
         click_button 'アカウントを作成'
-        expect(page).to have_content '入力したメールアドレスはすでに登録されています'
+        expect(page).to have_content 'メールアドレスはすでに存在します'
         expect(page).to have_content 'アカウントを作成できませんでした'
         expect(current_path).to eq new_user_path
       end
