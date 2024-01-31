@@ -13,8 +13,9 @@ class UsersController < ApplicationController
 
     if @user.save
       # あとからオートログインを実装する。一旦ログイン画面に遷移させる。
-      redirect_to root_path, notice: "User was successfully created."
+      redirect_to root_path, success: (t'.success')
     else
+      flash.now[:danger] = (t'.fail') 
       render :new, status: :unprocessable_entity
     end
   end
