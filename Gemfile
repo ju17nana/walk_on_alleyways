@@ -84,7 +84,7 @@ end
 group :test do
   # システムスペックを使う
   gem 'capybara'
-  gem 'webdriver'
+  gem 'webdrivers', '~> 5.3', '>= 5.3.1'
 end
 
 gem 'dockerfile-rails', '>= 1.6', :group => :development
