@@ -1,0 +1,13 @@
+ja:
+  defaults:
+    login: 'ログイン'
+    logout: 'ログアウト'
+    register: '新規登録'
+  users:
+    form:
+      submit: 'アカウントを作成'
+    new:
+      title: 'アカウントを作成'
+      to_login_page: 'ログイン'
+    
+

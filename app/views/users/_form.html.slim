@@ -8,19 +8,20 @@
 
   div
     = form.label :email, style: "display: block"
-    = form.text_field :email
+    = form.email_field :email,  placeholder: 'メールアドレスを入力'
 
   div
     = form.label :password, style: "display: block"
-    = form.text_field :password
+    = form.password_field :password, placeholder: 'パスワードを入力 (8〜32文字)'
 
   div
     = form.label :password_confirmation, style: "display: block"
-    = form.text_field :password_confirmation
+    = form.text_field :password_confirmation, placeholder: 'パスワードをもう一度入力'
 
   div
-    = form.label :nickname, style: "display: block"
-    = form.text_field :nickname
+    | アカウントを作成することにより利用規約および
+    br
+    | プライバシーポリシーに同意したものとみなします
 
   div
-    = form.submit
+    = form.submit (t '.submit')
