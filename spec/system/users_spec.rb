@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
-  # FactoryBotのテストデータを利用
-  let(:user) { FactoryBot.attributes_for(:user) }
+  let(:user) { attributes_for(:user) }
 
   describe 'ログイン前' do
     describe 'ユーザー登録' do
