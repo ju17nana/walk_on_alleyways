@@ -12,4 +12,7 @@ ja:
     create:
       success: 'アカウントを作成しました'
       fail: 'アカウントの作成に失敗しました'
-
+  user_sessions:
+    new:
+      title: 'ログイン'
+      to_register_page: 'アカウントを作成'
