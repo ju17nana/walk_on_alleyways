@@ -8,7 +8,7 @@ RSpec.describe "UserSessions", type: :system do
       it 'ユーザーがログインに成功する' do
         visit login_path
         fill_in 'email', with: user.email
-        fill_in 'password', with: user.password
+        fill_in 'password', with: 'password'
         click_button 'ログイン'
         expect(page).to have_content 'ログインしました'
         expect(current_path).to eq root_path
