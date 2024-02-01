@@ -4,6 +4,7 @@ header.bg-custom-nav-bg
       .col.d-flex.align-items-center.full-height
         = link_to 'pathfinder', root_path, id: 'app-logo', class: 'nav-link py-1'
 
+        = link_to 'logout', :logout, data: { turbo_method: :delete }
       .col-auto.d-flex.align-items-center.full-height
         ul.nav.d-flex.align-items-center.full-height
           li.nav-item.d-flex.align-items-center.full-height

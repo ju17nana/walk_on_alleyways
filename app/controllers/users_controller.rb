@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ destroy ]
+  skip_before_action :require_login, only: %i[ new create ]
 
 #  def show
 #  end
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
     if @user.save
       # あとからオートログインを実装する。一旦ログイン画面に遷移させる。
-      redirect_to root_path, success: (t'.success')
+      redirect_to login_path, success: (t'.success')
     else
       flash.now[:danger] = (t'.fail') 
       render :new, status: :unprocessable_entity
