@@ -3,6 +3,10 @@
   height: 100%;
 }
 
+.nav-icon {
+  font-size: 26px;
+}
+
 
 /*------------------------------------------*/
 /*==========================================
@@ -25,6 +29,7 @@ header .container-fluid {
   color: $gray-600;
 }
 
+//ドロップダウンの矢印を非表示
 #infoButton::after {
   display: none;
 }
@@ -43,15 +48,17 @@ header .container-fluid {
   height: 58px;
 }
 
-.bottom-nav-icon {
-  font-size: 26px;
+.nav-width {
+  max-width: 768px;
 }
 
 #bottom-nav ul li a {
   color: $gray-600;
 }
 
-#bottom-nav ul li a:hover {
+#bottom-nav ul li a:hover,
+#bottom-nav ul li a:focus,
+#bottom-nav ul li a:active {
   color: map-get($theme-colors, "custom-yellow");
 }
 

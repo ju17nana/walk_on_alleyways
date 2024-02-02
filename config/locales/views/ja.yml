@@ -3,6 +3,7 @@ ja:
     login: 'ログイン'
     logout: 'ログアウト'
     register: '新規登録'
+    mypage: 'マイページ'
   users:
     form:
       submit: 'アカウントを作成'
