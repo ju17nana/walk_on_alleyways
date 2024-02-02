@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Users", type: :system do
+RSpec.describe 'Users', type: :system do
   let(:user) { attributes_for(:user) }
 
   describe 'ログイン前' do
@@ -13,7 +13,7 @@ RSpec.describe "Users", type: :system do
           fill_in 'パスワード(確認)', with: user[:password]
           click_button 'アカウントを作成'
           expect(page).to have_content 'アカウントを作成しました'
-          expect(current_path).to eq login_path  # 完成系ではアカウント作成するとログイン状態になるようにする
+          expect(current_path).to eq login_path # 完成系ではアカウント作成するとログイン状態になるようにする
         end
       end
 
@@ -84,7 +84,7 @@ RSpec.describe "Users", type: :system do
 
       context 'メールアドレスが既に登録されている' do
         scenario 'ユーザーが新規登録に失敗する' do
-          FactoryBot.create(:user, email: 'test@example.com')
+          create(:user, email: 'test@example.com')
           visit new_user_path
           fill_in 'メールアドレス', with: 'test@example.com'
           fill_in 'パスワード', with: user[:password]

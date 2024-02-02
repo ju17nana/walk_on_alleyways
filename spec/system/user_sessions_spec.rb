@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "UserSessions", type: :system do
+RSpec.describe 'UserSessions', type: :system do
   let(:user) { create(:user) }
 
   describe 'ログイン前' do
@@ -26,11 +26,12 @@ RSpec.describe "UserSessions", type: :system do
       end
     end
   end
+
   describe 'ログイン後' do
     context 'ログアウトボタンをクリック' do
       it 'ログアウトに成功する' do
         login_as(user)
-        click_link 'ログアウト'
+        click_on 'ログアウト'
         expect(page).to have_content 'ログアウトしました'
         expect(current_path).to eq login_path
       end
