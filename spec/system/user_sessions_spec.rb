@@ -22,10 +22,18 @@ RSpec.describe "UserSessions", type: :system do
         fill_in 'password', with: ''
         click_button 'ログイン'
         expect(page).to have_content 'ログインに失敗しました'
-#        expect(page).to have_content 'メールアドレスまたはパスワードが間違っています'
         expect(current_path).to eq login_path
       end
     end
   end
-
+  describe 'ログイン後' do
+    context 'ログアウトボタンをクリック' do
+      it 'ログアウトに成功する' do
+        login_as(user)
+        click_link 'ログアウト'
+        expect(page).to have_content 'ログアウトしました'
+        expect(current_path).to eq login_path
+      end
+    end
+  end
 end
