@@ -1,0 +1,25 @@
+ja:
+  defaults:
+    login: 'ログイン'
+    logout: 'ログアウト'
+    register: '新規登録'
+    mypage: 'マイページ'
+    forget_password: 'パスワードをお忘れの方'
+  users:
+    form:
+      submit: 'アカウントを作成'
+    new:
+      title: 'アカウントを作成'
+      to_login_page: 'ログイン'
+    create:
+      success: 'アカウントを作成しました'
+      fail: 'アカウントの作成に失敗しました'
+  user_sessions:
+    new:
+      title: 'ログイン'
+      to_register_page: 'アカウントを作成'
+    create:
+      success: 'ログインしました'
+      fail: 'ログインに失敗しました'
+    destroy:
+      success: 'ログアウトしました'

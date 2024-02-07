@@ -19,19 +19,21 @@ $success:       #5db049;
 $info:          #4b2b17;
 $warning:       #daa011;
 $danger:        #f44336;
-//$light:         $gray-100;
-//$dark:          $gray-900;
 
 // gradient-variables
 //$enable-gradients:            false !default;
 //$gradient: linear-gradient(180deg, rgba($white, .15), rgba($white, 0)) !default;
 
+// Prefix for :root CSS variables
+
+$variable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix !default;
 
 
 // --------------------------------------------------
 // body
 $body-color: $gray-900;
-//$body-bg:    #fffdf8;
+$body-bg:    #fffdf8;
 
 // Style anchor elements.
 $link-color:                              $gray-900;
@@ -44,7 +46,7 @@ $link-hover-decoration:                   null;
 $border-color:                $gray-500;
 
 // border-radius-variables
-$border-radius:               .65rem;
+$border-radius:               .3rem;
 //$border-radius-sm:            .25rem;
 //$border-radius-lg:            .5rem;
 //$border-radius-xl:            1rem;
@@ -93,9 +95,13 @@ $small-font-size:             .8em;
 //-----------------------------------------------
 //Button and Forms
 
+
 // 813行目から Button Variables
+// Buttons
+$btn-border-radius:           var(--#{$prefix}border-radius) !default;
 
 // 866行目から Forms Variables
+$input-placeholder-color:     $gray-500;
 
 // 884行目から input Variables
 

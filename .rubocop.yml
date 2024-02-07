@@ -4,6 +4,8 @@ require:
   - rubocop-rails
   - rubocop-performance
   - rubocop-rspec
+  - rubocop-capybara
+  - rubocop-factory_bot
             
 AllCops: 
   # Ruby・Railsバージョン指定
@@ -77,8 +79,20 @@ Naming/FileName:
   Exclude:
     - 'Gemfile'
 
+# Capybaraの'current_path'に対する指摘を無効
+Capybara/CurrentPathExpectation:
+  Enabled: false
+
+# Capybaraの'scenario'に対する指摘を無効
+RSpec/Capybara/FeatureMethods:
+  Enabled: false
+
 # RSpecコンテキストの命名に関するCopを無効
 RSpec/ContextWording:
+  Enabled: false
+
+# RSpecの'click_button'に対する指摘を無効
+RSpec/ClickLinkOrButtonStyle:
   Enabled: false
 
 # described_classメソッドの使用に関するCopを無効
@@ -104,6 +118,15 @@ RSpec/MultipleExpectations:
 # RSpecのネストされたグループ（describeやcontext）の最大数
 RSpec/NestedGroups:
     Max: 5
+
+# RSpecでスペックの種類を明示的に記述することを許可
+RSpec/Rails/InferredSpecType:
+  Enabled: false
+
+# ブロックコメントを許可
+Style/BlockComments:
+  Exclude:
+    - 'rails_helper.rb'
 
 # クラスやモジュール内でのClass.newやModule.newの使用に関するCopを無効
 Style/ClassAndModuleChildren:

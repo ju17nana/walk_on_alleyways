@@ -1,0 +1,24 @@
+header.bg-custom-nav-bg
+  .container-fluid
+    .row.align-items-center.full-height
+      .col.d-flex.align-items-center.full-height
+        = link_to 'pathfinder', root_path, id: 'app-logo', class: 'nav-link py-1'
+
+      .col-auto.d-flex.align-items-center.full-height
+        ul.nav.d-flex.align-items-center.full-height
+          li.nav-item.d-flex.align-items-center.full-height
+            = link_to (t 'defaults.register'), new_user_path, class: 'nav-link py-3 px-2 mx-1'
+          li.nav-item.d-flex.align-items-center.full-height
+            = link_to (t 'defaults.login'), login_path, class: 'nav-link py-3 px-2 mx-1'
+          li.nav-item.dropdown.d-flex.align-items-center.full-height
+            = link_to '#', class: 'nav-link dropdown-toggle py-3 px-2 mx-1', type: 'button', id: 'infoButton', data: { bs_toggle: 'dropdown' }, aria: { haspopup: true, expanded: false } do
+              i.ph.ph-info
+            ul.dropdown-menu.dropdown-menu-end aria-labelledby="infoButton"
+              li
+                = link_to 'pathfinderについて', '#', class: 'dropdown-item nav-link'
+              li
+                = link_to '利用規約', '#', class: 'dropdown-item nav-link'
+              li
+                = link_to 'プライバシーポリシー', '#', class: 'dropdown-item nav-link'
+              li
+                = link_to 'お問合せ', '#', class: 'dropdown-item nav-link'
