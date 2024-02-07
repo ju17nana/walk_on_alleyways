@@ -7,7 +7,7 @@
 }
 
 .content-container {
-  padding: 40px 25px; 
+  padding: 40px 25px;  // bottom footer分要検討
   max-width: 768px;
 }
 
@@ -45,7 +45,7 @@
 ==========================================*/
 
 .form-container {
-  margin: 25px 0 98px; 
+  margin: 25px 0 98px; // bottomは必要分+footer58px分追加してる
   padding: 0 40px; 
   max-width: 450px;
 }
@@ -54,6 +54,9 @@
   margin-bottom: 20px;
 }
 
+.input-group-text {
+  color: $gray-600;
+}
 
 /*==========================================
                    button

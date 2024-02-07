@@ -1,21 +1,46 @@
 = form_with(model: user) do |f|
   = render 'shared/error_messages', object: f.object
-  div
-    = f.label :email, style: "display: block"
-    = f.email_field :email,  placeholder: 'メールアドレスを入力'
+  .row
+    .col-12
+      .field.form-group
+        = f.label :email, class: 'form-label'
+        .input-group
+          span.input-group-text.bg-custom-body-bg
+            i.ph.ph-envelope-simple
+          = f.email_field :email, class: 'form-control', placeholder: 'メールアドレスを入力'
 
-  div
-    = f.label :password, style: "display: block"
-    = f.password_field :password, placeholder: 'パスワードを入力 (8〜32文字)'
+  .row
+    .col-12
+      .field.form-group
+        = f.label :password,class: 'form-label'
+        .input-group
+          span.input-group-text.bg-custom-body-bg
+            i.ph.ph-key
+          = f.password_field :password, class: 'form-control', placeholder: 'パスワードを入力 (8〜32文字)'
 
-  div
-    = f.label :password_confirmation, style: "display: block"
-    = f.password_field :password_confirmation, placeholder: 'パスワードをもう一度入力'
+  .row
+    .col-12
+      .field.form-group
+        = f.label :password_confirmation, class: 'form-label'
+        .input-group
+          span.input-group-text.bg-custom-body-bg
+            i.ph.ph-key
+          = f.password_field :password_confirmation, class: 'form-control', placeholder: 'パスワードをもう一度入力'
 
-  div
-    | アカウントを作成することにより利用規約および
-    br
-    | プライバシーポリシーに同意したものとみなします
+  .row
+    .col-12
+      .consent-to-policy.text-center.small.mt-2.mb-2
+        / gray-600を使うかも
+        | アカウントを作成することにより
+        = link_to '#', class: 'text-decoration-none' do
+          | 利用規約
+        |および
+        br
+        = link_to '#', class: 'text-decoration-none' do
+          | プライバシーポリシー
+        |に同意したものとみなします
 
-  div
-    = f.submit (t '.submit')
+  .row
+    .col-12
+      .actions.d-grid.mb-3
+        = f.submit (t '.submit'), class: 'btn btn-green btn-block'
