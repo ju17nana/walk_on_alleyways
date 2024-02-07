@@ -1,4 +1,3 @@
-
 .full-height {
   height: 100%;
 }
@@ -7,7 +6,156 @@
   font-size: 26px;
 }
 
+.content-container {
+  padding: 40px 25px; 
+  max-width: 768px;
+}
 
+.page-title {
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+.lined-text {
+  display: flex;
+  align-items: center;
+}
+
+.lined-text::before,
+.lined-text::after {
+  content: "";
+  background-color: $gray-900;
+  flex-grow: 1;
+  height: 1px;
+}
+
+.lined-text::before {
+  margin-right: 7px;
+}
+
+.lined-text::after {
+  margin-left: 7px;
+}
+
+
+/*------------------------------------------*/
+
+/*==========================================
+                   form
+==========================================*/
+
+.form-container {
+  margin: 25px 0 98px; 
+  padding: 0 40px; 
+  max-width: 450px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+
+/*==========================================
+                   button
+==========================================*/
+
+.btn-yellow {
+  background-color: map-get($theme-colors, "custom-yellow");
+  border-color: map-get($theme-colors, "custom-yellow");
+  color: $body-bg;
+}
+
+.btn-yellow:hover,
+.btn-yellow:focus {
+  background-color: rgba(map-get($theme-colors, "custom-yellow"), .75);
+  border-color: rgba(map-get($theme-colors, "custom-yellow"), .75);
+  color: $body-bg;
+}
+
+.btn-yellow:active {
+  background-color: rgba(map-get($theme-colors, "custom-yellow"), .60) !important;
+  border-color: rgba(map-get($theme-colors, "custom-yellow"), .60) !important;
+  color: $body-bg !important;
+}
+
+.btn-outline-yellow {
+  background-color: transparent;
+  border-color: map-get($theme-colors, "custom-yellow");
+  color: map-get($theme-colors, "custom-yellow");
+}
+
+.btn-outline-yellow:focus,
+.btn-outline-yellow:hover {
+  background-color: rgba(map-get($theme-colors, "custom-yellow"), .35);
+  border-color: rgba(map-get($theme-colors, "custom-yellow"), .35);
+  color: $body-bg;
+}
+
+.btn-outline-yellow:active {
+  background-color: rgba(map-get($theme-colors, "custom-yellow"), .20) !important;
+  border-color: rgba(map-get($theme-colors, "custom-yellow"), .20) !important;
+  color: $body-bg !important;
+}
+
+.btn-green {
+  background-color: map-get($theme-colors, "custom-green");
+  border-color: map-get($theme-colors, "custom-green");
+  color: $body-bg;
+}
+
+.btn-green:hover,
+.btn-green:focus {
+  background-color: rgba(map-get($theme-colors, "custom-green"), .75);
+  border-color: rgba(map-get($theme-colors, "custom-green"), .75);
+  color: $body-bg;
+}
+
+.btn-green:active {
+  background-color: rgba(map-get($theme-colors, "custom-green"), .60) !important;
+  border-color: rgba(map-get($theme-colors, "custom-green"), .60) !important;
+  color: $body-bg !important;
+}
+
+.btn-outline-green {
+  background-color: transparent;
+  border-color: map-get($theme-colors, "custom-green");
+  color: map-get($theme-colors, "custom-green");
+}
+
+.btn-outline-green:hover, 
+.btn-outline-green:focus {
+  background-color: rgba(map-get($theme-colors, "custom-green"), .35);
+  border-color: rgba(map-get($theme-colors, "custom-green"), .35);
+  color: $body-bg;
+}
+
+.btn-outline-green:active {
+  background-color: rgba(map-get($theme-colors, "custom-green"), .20) !important;
+  border-color: rgba(map-get($theme-colors, "custom-green"), .20) !important;
+  color: $body-bg !important;
+}
+
+.btn-outline-black {
+  background-color: transparent;
+  border-color: $body-color;
+  color: $body-color;
+}
+
+.btn-outline-black:hover,
+.btn-outline-black:focus {
+  background-color: rgba($body-color, .35);
+  border-color: rgba($body-color, .35);
+  color: $body-bg;
+}
+
+.btn-outline-black:active {
+  background-color: rgba($body-color, .20) !important;
+  border-color: rgba($body-color, .20) !important;
+  color: $body-bg !important;
+}
+
+
+/*------------------------------------------*/
 /*------------------------------------------*/
 /*==========================================
                    header
@@ -44,21 +192,22 @@ header .container-fluid {
 /*==========================================
                    footer
 ==========================================*/
-#bottom-nav {
+footer {
   height: 58px;
 }
 
-.nav-width {
+.footer-width {
   max-width: 768px;
 }
 
-#bottom-nav ul li a {
-  color: $gray-600;
+footer ul li a {
+  color: $gray-600 !important;
 }
 
-#bottom-nav ul li a:hover,
-#bottom-nav ul li a:focus,
-#bottom-nav ul li a:active {
-  color: map-get($theme-colors, "custom-yellow");
+footer ul li a:hover,
+footer ul li a:focus,
+footer ul li a:active {
+  color: map-get($theme-colors, "custom-yellow") !important;
 }
+
 

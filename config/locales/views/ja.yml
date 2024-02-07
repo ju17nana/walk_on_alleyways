@@ -4,6 +4,7 @@ ja:
     logout: 'ログアウト'
     register: '新規登録'
     mypage: 'マイページ'
+    forget_password: 'パスワードをお忘れの方'
   users:
     form:
       submit: 'アカウントを作成'
