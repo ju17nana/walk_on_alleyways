@@ -12,6 +12,12 @@
   margin-bottom: 40px;
 }
 
+a:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba($gray-500, .5);
+  color: $gray-600 !important;
+}
+
 .lined-text {
   display: flex;
   align-items: center;
@@ -176,7 +182,6 @@ header .container-fluid {
 
 //何故かnav-linkの状態ごとのカラー設定が反映されないのでここで上書き
 #app-logo:hover,
-#app-logo:focus,
 #app-logo:active {
   color: $gray-600;
 }
