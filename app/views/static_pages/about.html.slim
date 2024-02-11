@@ -1,5 +1,86 @@
-.content-container
-  .row
-    .col-md-12
-      h1 About
-      p This is the about page.
+.content-container.mx-auto
+  .main-visual.mt-4
+    = image_tag 'main_img.png', class: 'img-fluid'
+    .main-visual-text
+      .main-copy.row
+        p.col.my-0
+          | 歩こう <br>
+            見つけよう
+        p.col-auto.my-0
+          | いつものまちを <br>
+            いつもと違う景色を
+
+  .statics-container
+    h2.about-heading
+      i.ph-duotone.ph-footprints
+      | いつもと違う道を歩いてみよう
+    .about-explainations
+      p
+        | 
+          大通りをあまり通らないルートを提案します。 <br>
+          細い道を通ってみたり 公園を抜けてみたり <br>
+          見慣れたまちが ちょっと違って見えるかも。
+      small
+        | ※ 関東・関西のみ
+      .div
+        | (ここにルート検索のGIFを貼ります)
+
+  .statics-container
+    h2.about-heading
+      i.ph-duotone.ph-images-square
+      | みんなのさんぽ風景を見てみよう
+    .about-explainations
+      p
+        |
+          ほかの人が撮った写真を見ることができます。 <br>
+          どこまでも続く道 かわいい猫ちゃん きれいに色づく草花 <br>
+          <br>
+          ログインすると写真をタグで検索してみたり、マップから近くの写真を探してみたりできます。<br>
+          自分も探してみたくなる景色が見つかるかもしれません。<br>
+          <br>
+          また気に入った写真をブックマークに保存したり、いいねをつけて応援することもできます。<br>
+          もちろん自分の写真も投稿できるようになります。
+      .div
+        | (ここに写真一覧のスクショを貼ります)<br>
+        | (ここに写真のマップ表示のスクショを貼ります)
+
+  .statics-container
+    h2.about-heading
+      i.ph-duotone.ph-flag-pennant
+      | おさんぽミッションに挑戦してみよう
+    .about-explainations
+      p
+        |
+          2週間ごとにお題が出されます。<br>
+          そのお題に沿ったものを散歩中に探してみましょう。<br>
+          いい写真が撮れたら 指定のタグをつけて投稿してください。<br>
+          <br>
+          何度でも挑戦できるので どんどん投稿してください。<br>
+          気軽にさんぽに出かけましょう。<br>
+          <br>
+          次のミッションはユーザーの投票で決まります。<br>
+          ログインするとその投票に参加できます。<br>
+          また自分がやってみたいミッションを提案することもできます。
+      .div
+        | (ここにミッション一覧のスクショを貼ります)
+
+    .div
+      h2 アカウント作成は簡単
+      p
+        |
+          メールアドレスとパスワードを登録するだけ<br>
+          またはGoogle連携でもご利用いただけます
+      .row.mt-5.to_register_page
+        .col-12.text-center
+          .to_register_link.d-grid
+            = link_to (t '.to_register_page'), new_user_path, class: 'btn btn-green btn-block'
+      .row.mt-5.to_login_page
+        .col-12.text-center
+          .have_account.mb-3
+            p.lined-text または
+            p すでにアカウントをお持ちの方
+
+          .to_login_link.d-grid
+            = link_to (t '.to_login_page'), login_path, class: 'btn btn-yellow btn-block'
+
+        
