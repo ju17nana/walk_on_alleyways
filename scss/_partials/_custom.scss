@@ -26,6 +26,7 @@ a:focus {
 .lined-text::before,
 .lined-text::after {
   content: "";
+  background-color: $gray-900;  // 線のカラー
   flex-grow: 1;
   height: 1px;
 }
