@@ -12,6 +12,17 @@
 
   .content-container
     .pt-3.pb-5
+      h1.pb-3.text-center
+        i.pe-2.ph-fill.ph-paw-print
+        | pathfinderについて
+      .mx-3.mx-sm-5
+        p
+          | 
+            さんぽが単調で飽きてしまう と思ったことはありませんか？<br>
+            pathfinderは、いつもと違う少しローカルなさんぽルートを提案し、新たな景色を発見してもらう<br>
+            街並み再発見・おさんぽ後押しサービスです。<br>
+
+    .pt-3.pb-5
       h2.pb-3.text-center
         i.pe-2.ph-duotone.ph-footprints
         | いつもと違う道を歩いてみよう
@@ -72,17 +83,17 @@
         |
           メールアドレスとパスワードを登録するだけ<br>
           またはGoogle連携でもご利用いただけます
-      .row.mt-5.to_register_page
+      .row.mt-5
         .col-12.text-center
-          .to_register_link.d-grid
+          .d-grid
             = link_to (t 'defaults.register'), new_user_path, class: 'btn btn-green btn-block'
-      .row.mt-5.to_login_page
+      .row.mt-5
         .col-12.text-center
-          .have_account.mb-3
+          .mb-3
             p.lined-text または
             p すでにアカウントをお持ちの方
 
-          .to_login_link.d-grid
+          .d-grid
             = link_to (t 'defaults.login'), login_path, class: 'btn btn-yellow btn-block'
 
           
