@@ -1,10 +1,14 @@
 .full-height {
   height: 100%;
 }
-
-.content-container {
-  margin: 0 25px 58px;
+.container-fluid {
   max-width: 768px;
+  margin: 0 auto;
+}
+
+// フッターにコンテンツが隠れないようにする
+.content-container {
+  margin-bottom: 58px;
 }
 
 .page-title {
