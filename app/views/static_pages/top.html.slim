@@ -1,5 +1,5 @@
-.content-container.mx-auto
-  .main-visual.mt-4
+.container-fluid
+  .main-visual.mt-4.mx-3
     = image_tag 'main_img.png', class: 'img-fluid'
     .main-visual-text
       .main-copy.row
@@ -10,58 +10,59 @@
           | いつものまちを <br>
             いつもと違う景色を
 
-  .top-container.bg-custom-nav-bg.py-3.px-5
-    .top-contents
-      ul.top-contents-list.list-unstyled
-        li
-          = link_to '目的地までのルートを探す', '#', class: 'text-decoration-none'
-    .top-bg.d-flex.justify-content-end
-      i.ph-duotone.ph-footprints
-      .top-bg-copy.top-bg-copy-right
-        p
-          | きょうはどこを <br>
-            歩きましょうか？
+  .content-container.mx-0
+    .top-container.bg-custom-nav-bg.py-3.px-5
+      .top-contents
+        ul.top-contents-list.list-unstyled
+          li
+            = link_to '目的地までのルートを探す', '#', class: 'text-decoration-none'
+      .top-bg.d-flex.justify-content-end
+        i.ph-duotone.ph-footprints
+        .top-bg-copy.top-bg-copy-right
+          p
+            | きょうはどこを <br>
+              歩きましょうか？
 
-  .top-container.py-3.px-5
-    .top-contents.d-flex.justify-content-end
-      ul.top-contents-list.list-unstyled
-        li.d-flex.justify-content-end
-          = link_to '投稿された写真を見てみる', '#', class: 'text-decoration-none'
-        li.d-flex.justify-content-end
-          = link_to '自分が投稿した写真を見てみる', '#', class: 'text-decoration-none'
-    .top-bg
-      i.ph-duotone.ph-images-square
-      .top-bg-copy.top-bg-copy-left
-        p
-          | どんな景色を <br>
-            探しましょうか？
+    .top-container.py-3.px-5
+      .top-contents.d-flex.justify-content-end
+        ul.top-contents-list.list-unstyled
+          li.d-flex.justify-content-end
+            = link_to '投稿された写真を見てみる', '#', class: 'text-decoration-none'
+          li.d-flex.justify-content-end
+            = link_to '自分が投稿した写真を見てみる', '#', class: 'text-decoration-none'
+      .top-bg
+        i.ph-duotone.ph-images-square
+        .top-bg-copy.top-bg-copy-left
+          p
+            | どんな景色を <br>
+              探しましょうか？
 
-  .top-container.bg-custom-nav-bg.py-3.px-5
-    .top-contents
-      ul.top-contents-list.list-unstyled
-        li
-          = link_to '写真を投稿する', '#', class: 'text-decoration-none'
-    .top-bg.d-flex.justify-content-end
-      i.ph.ph-plus-square
-      .top-bg-copy.top-bg-copy-right
-        p
-          | どんな景色が <br>
-            見つかりましたか？
+    .top-container.bg-custom-nav-bg.py-3.px-5
+      .top-contents
+        ul.top-contents-list.list-unstyled
+          li
+            = link_to '写真を投稿する', '#', class: 'text-decoration-none'
+      .top-bg.d-flex.justify-content-end
+        i.ph.ph-plus-square
+        .top-bg-copy.top-bg-copy-right
+          p
+            | どんな景色が <br>
+              見つかりましたか？
 
-  .top-container.py-3.px-5
-    .top-contents.d-flex.justify-content-end
-      ul.top-contents-list.list-unstyled
-        li.d-flex.justify-content-end
-          = link_to '今期のミッションを見てみる', '#', class: 'text-decoration-none'
-        li.d-flex.justify-content-end
-          = link_to '次のミッションを選ぶ', '#', class: 'text-decoration-none'
-        li.d-flex.justify-content-end
-          = link_to 'ミッションを提案する', '#', class: 'text-decoration-none'
-    .top-bg
-      i.ph-duotone.ph-flag-pennant
-      .top-bg-copy.top-bg-copy-left
-        p
-          | あなたのまちの○○ <br>
-            探してみませんか？
+    .top-container.py-3.px-5
+      .top-contents.d-flex.justify-content-end
+        ul.top-contents-list.list-unstyled
+          li.d-flex.justify-content-end
+            = link_to '今期のミッションを見てみる', '#', class: 'text-decoration-none'
+          li.d-flex.justify-content-end
+            = link_to '次のミッションを選ぶ', '#', class: 'text-decoration-none'
+          li.d-flex.justify-content-end
+            = link_to 'ミッションを提案する', '#', class: 'text-decoration-none'
+      .top-bg
+        i.ph-duotone.ph-flag-pennant
+        .top-bg-copy.top-bg-copy-left
+          p
+            | あなたのまちの○○ <br>
+              探してみませんか？
 
 
