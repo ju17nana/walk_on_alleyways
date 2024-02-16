@@ -243,7 +243,6 @@ footer ul li a:active {
 
 .main-copy {
   color: map-get($theme-colors, "custom-yellow");
-  line-height: 1.5;
   letter-spacing: 0.2em;
   text-align: right;
 }
@@ -288,7 +287,6 @@ footer ul li a:active {
 
 .top-contents-list {
   letter-spacing: 0.1em;
-  line-height: 2;
 
   @media (max-width: 430px) {
     font-size: 0.9rem; // 0〜430px の範囲の文字サイズ
@@ -338,7 +336,6 @@ footer ul li a:active {
   bottom: 0;
   letter-spacing: 0.2em;
   color: map-get($theme-colors, "custom-gray-5");
-  line-height: 1.5;
 }
 
 .top-bg-copy-left {
