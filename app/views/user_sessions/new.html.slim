@@ -29,13 +29,13 @@
 
     .row
       .col-12
-        .actions.d-grid.mb-3
+        .d-grid.mb-3
           = f.submit (t 'defaults.login'), class: 'btn btn-green btn-block'
 
-  .row.mt-5.to_register_page
+  .row.mt-5
     .col-12.text-center
-      .have_account.mb-3
+      .mb-3
         p.lined-text pathfinderを初めてご利用ですか？
 
-      .to_register_link.d-grid
+      .d-grid
         = link_to (t '.to_register_page'), new_user_path, class: 'btn btn-yellow btn-block'

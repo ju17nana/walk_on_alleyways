@@ -1,79 +1,68 @@
-h1.text-custom-yellow
-  | StaticPages#top
-p.text-success
-  | 以下の文はダミーです
+.container-fluid
+  .main-visual.mt-4.mx-3
+    = image_tag 'main_img.png', class: 'img-fluid'
+    .main-visual-text
+      .main-copy.row
+        p.col.my-0
+          | 歩こう <br>
+            見つけよう
+        p.col-auto.my-0
+          | いつものまちを <br>
+            いつもと違う景色を
 
-p
-  | 
-    きみの夢がゴミと化して はや幾星霜 <br>
-     <br>
-     <br>
-    燃えてこそゴミでしょう と勇ましく<br>
-     <br>
-     <br>
-    見るからにしぶとそうだ 不燃物だろう<br>
-     <br>
-     <br>
-    指定された火曜日 ほっと一息 <br>
-     <br>
-     <br>
-    だけど 持ってかれてないぜ <br>
-     <br>
-     <br>
-    紙が貼ってあるぜ <br>
-     <br>
-     <br>
-    なになに 「燃えるゴミは月曜日」<br>
-    <br>
-    <br>
-    燃えるのかコレ燃えるのか <br>
-    <br>
-    <br>
-    燃えなさそうでも燃えるのか <br>
-     <br>
-     <br>
-    燃えますよ灰にできますよ <br>
-     <br>
-     <br>
-    あなたがそうしたくないだけなのでは <br>
-     <br>
-     <br>
-    ぼくはかさぶた きみの膝小僧 <br>
-     <br>
-     <br>
-    擦りむいたとこから生まれた <br>
-     <br>
-     <br>
-    今日の放課後 ケンカしたきみの <br>
-     <br>
-     <br>
-    泣き声から生まれた <br>
-     <br>
-     <br>
-    はじめまして 仲良くやろうぜ <br>
-     <br>
-     <br>
-    かゆいからって はがすなよ <br>
-     <br>
-     <br>
-    短い間だと思うけど ここは 任せとけ<br>
-     <br>
-     <br>
-    透明よりも綺麗なあの輝きを確かめに行こう <br>
-     <br>
-     <br>
-    そうやって始まったんだよ <br>
-     <br>
-     <br>
-    たまに忘れるほど強い理由 <br>
-     <br>
-     <br>
-    冷たい雨に濡れる時は <br>
-     <br>
-     <br>
-    足音比べ 騒ぎながら行こう <br>
-     <br>
-     <br>
-    太陽の代わりに唄を 君と僕と世界の声で <br>
-     <br>
-     <br>
+  .content-container.mx-0
+    .top-container.bg-custom-nav-bg.py-3.px-5
+      .top-contents
+        ul.top-contents-list.list-unstyled.lh-lg
+          li
+            = link_to '目的地までのルートを探す', '#', class: 'text-decoration-none'
+      .top-bg.d-flex.justify-content-end
+        i.ph-duotone.ph-footprints
+        .top-bg-copy.top-bg-copy-right
+          p
+            | きょうはどこを <br>
+              歩きましょうか？
+
+    .top-container.py-3.px-5
+      .top-contents.d-flex.justify-content-end
+        ul.top-contents-list.list-unstyled.lh-lg
+          li.d-flex.justify-content-end
+            = link_to '投稿された写真を見てみる', '#', class: 'text-decoration-none'
+          li.d-flex.justify-content-end
+            = link_to '自分が投稿した写真を見てみる', '#', class: 'text-decoration-none'
+      .top-bg
+        i.ph-duotone.ph-images-square
+        .top-bg-copy.top-bg-copy-left
+          p
+            | どんな景色を <br>
+              探しましょうか？
+
+    .top-container.bg-custom-nav-bg.py-3.px-5
+      .top-contents
+        ul.top-contents-list.list-unstyled.lh-lg
+          li
+            = link_to '写真を投稿する', '#', class: 'text-decoration-none'
+      .top-bg.d-flex.justify-content-end
+        i.ph.ph-plus-square
+        .top-bg-copy.top-bg-copy-right
+          p
+            | どんな景色が <br>
+              見つかりましたか？
+
+    .top-container.py-3.px-5
+      .top-contents.d-flex.justify-content-end
+        ul.top-contents-list.list-unstyled.lh-lg
+          li.d-flex.justify-content-end
+            = link_to '今期のミッションを見てみる', '#', class: 'text-decoration-none'
+          li.d-flex.justify-content-end
+            = link_to '次のミッションを選ぶ', '#', class: 'text-decoration-none'
+          li.d-flex.justify-content-end
+            = link_to 'ミッションを提案する', '#', class: 'text-decoration-none'
+      .top-bg
+        i.ph-duotone.ph-flag-pennant
+        .top-bg-copy.top-bg-copy-left
+          p
+            | あなたのまちの○○ <br>
+              探してみませんか？
+
+

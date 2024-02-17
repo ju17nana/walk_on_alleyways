@@ -1,8 +1,8 @@
 header.bg-custom-nav-bg
-  .container-fluid
+  .container-fluid.full-height
     .row.align-items-center.full-height
       .col.d-flex.align-items-center.full-height
-        = link_to 'pathfinder', root_path, id: 'app-logo', class: 'nav-link py-1'
+        = link_to 'pathfinder', about_path, id: 'app-logo', class: 'nav-link py-1'
 
       .col-auto.d-flex.align-items-center.full-height
         ul.nav.d-flex.align-items-center.full-height
@@ -15,7 +15,7 @@ header.bg-custom-nav-bg
               i.ph.ph-info
             ul.dropdown-menu.dropdown-menu-end aria-labelledby="infoButton"
               li
-                = link_to 'pathfinderについて', '#', class: 'dropdown-item nav-link'
+                = link_to 'pathfinderについて', about_path, class: 'dropdown-item nav-link'
               li
                 = link_to '利用規約', '#', class: 'dropdown-item nav-link'
               li

@@ -1,19 +1,25 @@
 .full-height {
   height: 100%;
 }
-
-.nav-icon {
-  font-size: 26px;
+.container-fluid {
+  max-width: 768px;
+  margin: 0 auto;
 }
 
+// フッターにコンテンツが隠れないようにする
 .content-container {
-  padding: 40px 25px;  // bottom footer分要検討
-  max-width: 768px;
+  margin-bottom: 58px;
 }
 
 .page-title {
   margin-top: 10px;
   margin-bottom: 40px;
+}
+
+a:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba($gray-500, .5);
+  color: $gray-600 !important;
 }
 
 .lined-text {
@@ -24,7 +30,7 @@
 .lined-text::before,
 .lined-text::after {
   content: "";
-  background-color: $gray-900;
+  background-color: $gray-900;  // 線のカラー
   flex-grow: 1;
   height: 1px;
 }
@@ -54,6 +60,7 @@
   margin-bottom: 20px;
 }
 
+// form左側のアイコンのカラー
 .input-group-text {
   color: $gray-600;
 }
@@ -159,11 +166,16 @@
 
 
 /*------------------------------------------*/
-/*------------------------------------------*/
+
 /*==========================================
-                   header
+              header / footer
 ==========================================*/
-header .container-fluid {
+
+.nav-icon {
+  font-size: 26px;
+}
+
+header {
   height: 58px;
 }
 
@@ -175,7 +187,6 @@ header .container-fluid {
 
 //何故かnav-linkの状態ごとのカラー設定が反映されないのでここで上書き
 #app-logo:hover,
-#app-logo:focus,
 #app-logo:active {
   color: $gray-600;
 }
@@ -189,12 +200,8 @@ header .container-fluid {
   font-size: 1.2rem;
 }
 
-
 /*------------------------------------------*/
 
-/*==========================================
-                   footer
-==========================================*/
 footer {
   height: 58px;
 }
@@ -211,6 +218,152 @@ footer ul li a:hover,
 footer ul li a:focus,
 footer ul li a:active {
   color: map-get($theme-colors, "custom-yellow") !important;
+}
+
+/*------------------------------------------*/
+
+/*==========================================
+              static_pages
+==========================================*/
+
+.main-visual {
+  display: flex;
+  position: relative;
+}
+
+.main-visual-text {
+  position: absolute;
+  bottom: 8%;
+  right: 5%;
+  padding: 5px;
+  background: -moz-radial-gradient(rgba(255, 253, 248, 0.9), rgba(255, 253, 248, 0.05));
+  background: -webkit-radial-gradient(rgba(255, 253, 248, 0.9), rgba(255, 253, 248, 0.05));
+  background: radial-gradient(rgba(255, 253, 248, 0.9), rgba(255, 253, 248, 0.05));
+}
+
+.main-copy {
+  color: map-get($theme-colors, "custom-yellow");
+  letter-spacing: 0.2em;
+  text-align: right;
+}
+
+.top-container {
+  width: 100%;
+
+  @media (max-width: 430px) {
+    height: 170px; // 0〜430px の範囲の文字サイズ
+  }
+
+  @media (min-width: 431px) and (max-width: 520px) {
+    height: 190px; // 431〜521px の範囲の文字サイズ
+  }
+
+  @media (min-width: 521px) and (max-width: 640px) {
+    height: 200px; // 521〜640px の範囲の文字サイズ
+  }
+
+  @media (min-width: 641px) {
+    height: 210px; // 641px 以上の範囲の文字サイズ
+  }
+}
+
+.top-contents {
+  @media (max-width: 430px) {
+    height: 80px; // 0〜430px の範囲の文字サイズ
+  }
+
+  @media (min-width: 431px) and (max-width: 520px) {
+    height: 85px; // 431〜521px の範囲の文字サイズ
+  }
+
+  @media (min-width: 521px) and (max-width: 640px) {
+    height: 90px; // 521〜640px の範囲の文字サイズ
+  }
+
+  @media (min-width: 641px) {
+    height: 95px; // 641px 以上の範囲の文字サイズ
+  }
+}
+
+.top-contents-list {
+  letter-spacing: 0.1em;
+
+  @media (max-width: 430px) {
+    font-size: 0.9rem; // 0〜430px の範囲の文字サイズ
+  }
+
+  @media (min-width: 431px) and (max-width: 520px) {
+    font-size: 1rem; // 431〜521px の範囲の文字サイズ
+  }
+
+  @media (min-width: 521px) and (max-width: 640px) {
+    font-size: 1.1rem; // 521〜640px の範囲の文字サイズ
+  }
+
+  @media (min-width: 641px) {
+    font-size: 1.2rem; // 641px 以上の範囲の文字サイズ
+  }
+}
+
+.top-bg {
+  display: flex;
+  position: relative;
+}
+
+.top-bg i{
+  font-size: 90px;
+  color: map-get($theme-colors, "custom-gray-2");
+
+  @media (max-width: 430px) {
+    font-size: 70px; // 0〜430px の範囲の文字サイズ
+  }
+
+  @media (min-width: 431px) and (max-width: 520px) {
+    font-size: 80px; // 431〜521px の範囲の文字サイズ
+  }
+
+  @media (min-width: 521px) and (max-width: 640px) {
+    font-size: 90px; // 521〜640px の範囲の文字サイズ
+  }
+
+  @media (min-width: 641px) {
+    font-size: 95px; // 641px 以上の範囲の文字サイズ
+  }
+}
+
+.top-bg-copy {
+  position: absolute;
+  bottom: 0;
+  letter-spacing: 0.2em;
+  color: map-get($theme-colors, "custom-gray-5");
+}
+
+.top-bg-copy-left {
+  left: 5px;
+}
+
+.top-bg-copy-right {
+  right: 5px;
+  text-align: right;
+}
+
+.main-copy,
+.top-bg-copy {
+  @media (max-width: 430px) {
+    font-size: 1rem; // 0〜430px の範囲の文字サイズ
+  }
+
+  @media (min-width: 431px) and (max-width: 520px) {
+    font-size: 1.2rem; // 431〜521px の範囲の文字サイズ
+  }
+
+  @media (min-width: 521px) and (max-width: 640px) {
+    font-size: 1.35rem; // 521〜640px の範囲の文字サイズ
+  }
+
+  @media (min-width: 641px) {
+    font-size: 1.5rem; // 641px 以上の範囲の文字サイズ
+  }
 }
 
 
